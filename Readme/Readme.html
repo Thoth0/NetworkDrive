@@ -1,0 +1,132 @@
+<HTML><HEAD><TITLE>AejW.com - Network Drive Class - 0015</TITLE>
+<STYLE>
+BODY{font-family:tahoma;font-size:9pt;}
+H2{font-family:tahoma;font-weight:700;font-size:12pt;}
+H3{font-family:tahoma;font-weight:700;font-size:10pt;}
+</STYLE></HEAD><BODY>
+<DIV style="height:20px:width:100%;background-color:#C2C2C2;padding:4px;border:#4F4F4F 1px solid">
+	<B>AejW.com - Network Drive Class - 0015<BR>Copyright &copy;2004 Adam ej Woods</B>
+</DIV>
+<B><BR>[Readme] - <A href="EULA.html">EULA</A><BR></B>
+<P><IMG alt="Example Image" src="netdrive0015.jpg" height=246 width=445></P>
+
+<!-- Start: Code Project - http://www.thecodeproject.com/ -->
+<!--
+<UL class=download>
+<LI><A href="mapnetdrive/netdrive0015_src.zip">Download source code / example - 13 Kb</A>
+</LI></UL>
+<P><IMG alt="Image - netdrive0015.jpg" src="mapnetdrive/netdrive0015.jpg" height=246 width=445></P>
+-->
+
+<H2>What does it do?</H2>
+	<P>This is a class for interfacing with windows map network drive API's. </P>
+
+<H2>Introduction to the class...</H2><UL>
+	<LI><H3>Getting started</H3>Add the class file "cNetworkDrives0015.cs" to your project / solution.<BR>Add the "using" definition to your form, etc.<BR>
+	<PRE lang=cs>using aejw.Network;</PRE>
+	<LI><H3>Example (Mapping a network drive)</H3><PRE lang=cs> NetworkDrive oNetDrive = new aejw.Network.NetworkDrive();
+ try{
+	oNetDrive.LocalDrive = "m:";
+	oNetDrive.ShareName = "\\ComputerName\Share"
+	oNetDrive.MapDrive();
+ }catch(Exception err){
+	MessageBox.Show(this,"Error: "+err.Message);
+ }
+ oNetDrive = null;</PRE></LI>
+	<LI><H3>Example (Unmapping a network drive)</H3><PRE lang=cs> NetworkDrive oNetDrive = new aejw.Network.NetworkDrive();
+ try{
+	oNetDrive.LocalDrive = "m:";
+	oNetDrive.UnMapDrive();
+ }catch(Exception err){
+	MessageBox.Show(this,"Error: "+err.Message);
+ }
+ oNetDrive = null;</PRE>
+	</LI>
+</UL>
+
+<H2>Username and Password functions...</H2>The following examples require the object / class to be declared.<PRE lang=cs>     cNetworkDrive oNetDrive = new cNetworkDrive();</PRE>
+<UL>
+	<LI><H3>Mapping a network drive</H3>
+		<UL>
+		<LI><PRE lang=cs>//Map drive with current user credentials
+oNetDrive.LocalDrive = "m:";
+oNetDrive.ShareName = "\\ComputerName\Share1"
+oNetDrive.MapDrive();</PRE></LI>
+		<LI><PRE lang=cs>//Map drive with specified user credentials
+oNetDrive.LocalDrive = "m:";
+oNetDrive.ShareName = "\\ComputerName\Share1"
+oNetDrive.MapDrive("Bob_Username","Bob_Password");</PRE></LI>
+		<LI><PRE lang=cs>//Map drive with and prompt user for credentials
+oNetDrive.LocalDrive = "m:";
+oNetDrive.ShareName = "\\ComputerName\Share1"
+oNetDrive.PromptForCredentials = true;
+oNetDrive.MapDrive();</PRE></LI>
+
+		<LI><PRE lang=cs>//Map drive using a persistent connection
+oNetDrive.LocalDrive = "m:";
+oNetDrive.Persistent = true;
+oNetDrive.SaveCredentials = true;
+oNetDrive.ShareName = "\\ComputerName\Share1"
+oNetDrive.MapDrive("Bob_Username","Bob_Password");</PRE></LI>
+		</UL>
+	</LI>
+	<LI><H3>Unmapping a network drive</H3>
+		<UL>
+			<LI><PRE lang=cs>//Unmap a network connection
+oNetDrive.LocalDrive = "m:";
+oNetDrive.ShareName = "\\ComputerName\Share1"
+oNetDrive.UnMapDrive();</PRE></LI>
+			<LI><PRE lang=cs>//Unmap a network connection ignoring network related errors
+oNetDrive.LocalDrive = "m:";
+oNetDrive.Force = true;
+oNetDrive.ShareName = "\\ComputerName\Share1"
+oNetDrive.UnMapDrive();</PRE></LI>
+		</UL>
+	</LI>
+	<LI><H3>Other functions</H3>
+		<UL>
+			<LI><PRE lang=cs>//Display windows connection dialog
+oNetDrive.ShowConnectDialog(this);
+//Display windows disconnection dialog
+oNetDrive.ShowDisconnectDialog(this);</PRE></LI>
+			<LI><PRE lang=cs>//Restore all persistent connections
+oNetDrive.RestoreDrives();</PRE></LI>
+		</UL>
+	</LI>
+
+</UL>
+
+<H2>History</H2>
+<UL>
+	<LI>14th May 2004 - build0015
+		<UL>
+		<LI><CODE>LocalDrive</CODE> and <CODE>ShareName</CODE> are now propertys.</LI>
+		<LI>Dialog functions now use a form object instead of a window handle.</LI>
+		<LI>Renaming scheme for public functions and propertys, <CODE>MapNetworkDrive(...)</CODE> is now <CODE>MapDrive(...)</CODE>, etc...</LI>
+		<LI>Added <CODE>Persistant</CODE> option, Used for reconnecting a drive at logon.</LI>
+		<LI>Added <CODE>SaveCredentials</CODE> option, Allows windows to remember the user credentials when reconnecting a persistant connection.</LI>
+		<LI>Added <CODE>Force</CODE> option, for <CODE>MapDrive</CODE> calls, if a drive is connected it will disconnect that drive then reconnect to the new share.</LI>
+		<LI>Added <CODE>PromptForCredintals</CODE> option, for <CODE>MapDrive</CODE> calls, windows will ask for a username and password to use with the connection.</LI>
+		<LI>Added <CODE>RestoreDrives</CODE> function that restores persistent connections.</LI>
+		</UL>
+	</LI>
+	<LI>30th April 2004 - build0012
+		<UL>
+		<LI>Code refinements and tidying, added comments to the class.</LI>
+		</UL>
+	</LI>
+	<LI>27th April 2004 - build0011
+		<UL>
+		<LI>Adjusted declare tags, tidyed class and article</LI>
+		</UL>
+	</LI>
+	<LI>26th April 2004 - build0010
+		<UL>
+		<LI>First version posted online</LI>
+		</UL>
+	</LI>
+</UL>
+
+<!-- End -->
+</BODY></HTML>
+
